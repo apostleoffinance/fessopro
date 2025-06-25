@@ -29,3 +29,9 @@ for i in range(100):
         #print(i)
 print(l1)
 
+# type 3 loop uses the concept of index 
+
+l1=[44,55,66,77,88]
+for i in range(len(l1)):
+    print(l1[i])
+
