@@ -15,3 +15,17 @@ num=len(l1)
 print(num)
 average = total/num
 print("Avg is" , average)
+
+#type 2 loop - It is used to run a piece of code for n number of times | Generating the lists
+print(list(range(20))) #Range function is a function that generates a list of n numbers
+
+for i in range(10):
+    print('hello', i)
+
+l1 =[]
+for i in range(100):
+    if i%2 == 0:
+        l1.append(i)
+        #print(i)
+print(l1)
+
