@@ -79,3 +79,38 @@ p2 = Book(title='Calculus',author = 'Schaum',price = 30.0,quantity=1)
 print(p1.price)
 p1.set_price(30.0)
 print(p1.price)
+
+
+
+
+
+
+
+class BankAccount:
+    bank_name='jpmorgan'
+
+    def __init__(self, account_number, initial_balance):
+        self.account_number=account_number
+        self.balance=initial_balance
+
+    def deposit(self, amount):
+        if amount<0:
+            print('invalid amount')
+        else:
+            self.balance=self.balance+amount
+
+    def withdraw(self, amount):
+        if amount<self.balance:
+            self.balance=self.balance-amount
+    
+    def get_balance(self):
+        return self.balance
+    
+my_account = BankAccount(account_number='12345678', initial_balance=1000)
+
+# Deposit and Withdraw
+my_account.deposit(500)
+my_account.withdraw(200)
+print(my_account.get_balance()) #Output: 1300
+
+    
