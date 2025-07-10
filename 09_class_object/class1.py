@@ -114,3 +114,8 @@ my_account.withdraw(200)
 print(my_account.get_balance()) #Output: 1300
 
     
+
+
+#self 
+#all method first parameter should be self
+#if you want to access any attribute (variable) you have to use self
