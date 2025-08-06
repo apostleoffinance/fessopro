@@ -15,5 +15,7 @@ data['Date']=pd.to_datetime(data['Date'])
 #convert to timezone
 data['Date'] = data['Date'].dt.tz_convert(time_zone)
 
+data['Date'] = data['Date'].dt.tz_localize(None)
+
 print(data)
 print(data.info())
