@@ -1,5 +1,11 @@
 from alpaca.data.live.crypto import CryptoDataStream
 
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
+
 # import os
 # import certifi
 # #for windows ssl error
@@ -9,8 +15,10 @@ import pendulum as dt
 time_zone="UTC"
 print(dt.now(time_zone))
 
-api_key='PKE2TF3F7XPYTG8BBD3Z'
-secret_key='zfYLU7dn3fdS3HfMf0kvS4XW1hG5C3a2NBhZQQuM'
+
+# Fetch keys from environment
+api_key = os.getenv("API_KEY")
+secret_key = os.getenv("SECRET_KEY")
 
 crypto_data_stream_client=CryptoDataStream(api_key,secret_key)
 async def sample(data):
