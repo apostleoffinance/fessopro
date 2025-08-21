@@ -12,7 +12,7 @@ cash,99793.98
 accrued_fees,0
 pending_transfer_out,
 pending_transfer_in,
-portfolio_value,100116.53
+portfolio_value,100108.99
 pattern_day_trader,False
 trading_blocked,False
 transfers_blocked,False
@@ -21,9 +21,9 @@ created_at,2024-11-14 16:14:45.303574+00:00
 trade_suspended_by_user,False
 multiplier,2
 shorting_enabled,True
-equity,100116.53
-last_equity,100118.72077335
-long_market_value,322.55
+equity,100108.99
+last_equity,100101.649352865
+long_market_value,315.01
 short_market_value,0
 initial_margin,0
 maintenance_margin,0
