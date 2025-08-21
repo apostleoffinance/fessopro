@@ -1,0 +1,5 @@
+,asset_id,symbol,exchange,asset_class,asset_marginable,avg_entry_price,qty,side,market_value,cost_basis,unrealized_pl,unrealized_plpc,unrealized_intraday_pl,unrealized_intraday_plpc,current_price,lastday_price,change_today,swap_rate,avg_entry_swap_rate,usd,qty_available
+0,f801f835-bfe6-4a9d-a6b1-ccbb84bfd75f,AMZN,NASDAQ,us_equity,True,222.51,1,long,221.99,222.51,-0.52,-0.0023369736191632,-0.52,-0.0023369736191632,221.99,223.81,-0.0081318975917073,,,,1
+1,4ce9353c-66d1-46c2-898f-fce867ab0247,NVDA,NASDAQ,us_equity,True,176.03,-1,short,-174.75,-176.03,1.28,0.0072714878145771,1.28,0.0072714878145771,174.75,175.4,-0.0037058152793615,,,,-1
+2,1cf35270-99ee-44e2-a77f-6fab902c7f80,SOLUSD,CRYPTO,crypto,False,184.38078677,3.991,long,720.7746,735.86372,-15.08912,-0.0205053185663237,-15.08912,-0.0205053185663237,180.6,187.28,-0.0356685177274669,,,,2.9935
+3,8ccae427-5dd0-45b3-b5fe-7ba5e422c766,TSLA,NASDAQ,us_equity,True,321.98,2,long,639.04,643.96,-4.92,-0.0076402261010001,-4.92,-0.0076402261010001,319.52,323.9,-0.0135226921889472,,,,2
