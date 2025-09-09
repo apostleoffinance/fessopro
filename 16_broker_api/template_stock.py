@@ -16,8 +16,17 @@ from alpaca.data.requests import StockBarsRequest
 from alpaca.trading.client import TradingClient
 
 
-api_key='PKCGQ99MC5FQA1P8ZSRE'
-secret_key='rkWLI1F2poiTbuERdzozfOLgVV6mrFKTH27Ugvb1'
+
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Fetch keys from environment
+api_key = os.getenv("API_KEY")
+secret_key = os.getenv("SECRET_KEY")
+
 trading_client = TradingClient(api_key, secret_key, paper=True)
 
 
@@ -48,6 +57,7 @@ def close_this_position(ticker_name):
         print('position closed')
     except:
         print('position does not exist')
+
 
 def get_historical_stock_data(ticker,duration,time_frame_unit):
     # setup stock historical data client
@@ -83,22 +93,27 @@ def get_all_position():
     pos_df=pos_df[pos_df['symbol'].isin(list_of_tickers)]
     return pos_df
 
-def get_all_open_orders():
-    # params to filter orders by
-    request_params = GetOrdersRequest(
-                        status=QueryOrderStatus.OPEN
-                    )
 
-    # orders that satisfy params
+def get_all_open_orders():
+    request_params = GetOrdersRequest(status=QueryOrderStatus.OPEN)
     orders = trading_client.get_orders(filter=request_params)
-    new_order=[]
+
+    new_order = []
     for elem in orders:
         new_order.append(dict(elem))
 
-    order_df=pd.DataFrame(new_order)
-    # order_df.to_csv('orders.csv')
-    l=[i for i in list_of_tickers]
-    order_df=order_df[order_df['symbol'].isin(l)]
+    order_df = pd.DataFrame(new_order)
+
+    if order_df.empty:
+        print("No open orders found.")
+        return order_df
+
+    if "symbol" not in order_df.columns:
+        print("Available columns in order_df:", order_df.columns)
+        return order_df  # Or rename columns if symbol is under another name
+
+    l = [i for i in list_of_tickers]
+    order_df = order_df[order_df['symbol'].isin(l)]
     return order_df
 
 
@@ -123,7 +138,6 @@ def trade_buy_stocks(ticker,closing_price,quantity):
     print('done placing market order buy for ',ticker)
 
 
-
 def trade_sell_stocks(ticker,closing_price,quantity):
     print('placing market order')
     # preparing orders
@@ -144,7 +158,6 @@ def trade_sell_stocks(ticker,closing_price,quantity):
     print('done placing market order sell for ',ticker)
 
 
-
 def strategy(hist_df,ticker,quantity):
     print('inside strategy conditional code ')
     # print(hist_df)
@@ -163,8 +176,6 @@ def strategy(hist_df,ticker,quantity):
         trade_sell_stocks(ticker,closing_price,quantity)
     else:
         print('no condition satisfied')
-
-
 
 
 # This is a placeholder for your trading strategy logic.
