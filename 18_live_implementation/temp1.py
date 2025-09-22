@@ -109,6 +109,11 @@ def get_open_position():
         new_pos.append(dict(elem))
 
     pos_df=pd.DataFrame(new_pos)
+
+    # Check if DataFrame is empty before trying to filter
+    if pos_df.empty:
+        return pos_df
+    
     print(pos_df)
     #filter pos that are in list_of_tickers
     l=[i.replace("/","") for i in list_of_tickers]
@@ -137,16 +142,35 @@ def get_open_orders():
 
 
 def close_this_crypto_position(ticker_name):
+    global trades_info
     try:
         position = trading_client.get_open_position(ticker_name.replace('/',''))
         print(position)
         logging.info(f'Closing position for {ticker_name}')
-        c=trading_client.close_position(ticker_name.replace('/',''))
+        
+        # Record position details before closing
+        qty = float(position.qty)
+        current_price = float(position.current_price)
+        
+        # Close the position
+        c = trading_client.close_position(ticker_name.replace('/',''))
         print(c)
         print('position closed')
+        
+        # Record the closing trade
+        trades_info.loc[dt.now()] = [
+            ticker_name,
+            'sell',
+            current_price,
+            qty,
+            0,
+            0
+        ]
+        trades_info.to_csv('trades.csv')
+        
         return True
-    except:
-        print('position does not exist')
+    except Exception as e:
+        print('position does not exist:', str(e))
         return False
 
 def close_this_order_for_crypto(ticker_name):
@@ -194,7 +218,10 @@ def trade_sell_stocks(symbol,stock_price,stop_price,quantity=1):
                         order_data=market_order_data
                     )
         print(market_order)
-    trades_info.loc[dt.now()]=[symbol,'sell',stock_price,quantity,0,0]
+    #trades_info.loc[dt.now()]=[symbol,'sell',stock_price,quantity,0,0]
+        # Add trade info and save to CSV immediately
+        trades_info.loc[dt.now()]=[symbol,'sell',stock_price,quantity,0,0]
+        trades_info.to_csv('trades.csv')
 
 
 
@@ -217,7 +244,10 @@ def trade_buy_stocks(symbol,stock_price,stop_price,quantity=1):
                         order_data=market_order_data
                     )
         print(market_order)
+        #trades_info.loc[dt.now()]=[symbol,'buy',stock_price,quantity,0,0]
+        # Add trade info and save to CSV immediately
         trades_info.loc[dt.now()]=[symbol,'buy',stock_price,quantity,0,0]
+        trades_info.to_csv('trades.csv')
 
 
 def place_stop_order_stock(symbol,stop_price,quantity,side):
